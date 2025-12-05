@@ -16,9 +16,3 @@ module "webappmodule" {
     
 }
 
-module "acrmodule" {
-    source = "../../module/4_acr_acrpull"
-    acrvarchild = var.acrvarparent
-    depends_on = [module.rg1module]
-}
-
