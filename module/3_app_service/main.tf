@@ -6,7 +6,7 @@ resource "azurerm_linux_web_app" "static_app" {
   name                = each.key
   resource_group_name = each.value.resource_group_name
   location            = each.value.location
-  service_plan_id     = azurerm_service_plan.plan.id
+  service_plan_id     = data.azurerm_service_plan.app_service_plan[each.key].id
 
   identity {
     type = "SystemAssigned"
@@ -14,8 +14,7 @@ resource "azurerm_linux_web_app" "static_app" {
 
   site_config {
     application_stack {
-      docker_image_name   = each.value.docker_image_name
-      docker_registry_url = azurerm_container_registry.acr.login_server
+     node_version = "18-lts"
     }
   }
 }
